@@ -1,0 +1,12 @@
+{
+  "entryPoints": ["./src/index.ts"],
+  "out": "./docs",
+  "githubPages": false,
+  "name": "Stateset.js Docs",
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "media": "./media",
+  "hideGenerator": true,
+  "customCss": "./typedoc.css",
+  "favicon": "/media/docs_favicon.svg"
+}
