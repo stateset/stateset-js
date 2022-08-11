@@ -1,12 +1,5 @@
 # Stateset Network Node.js Library
 
-<p align="center">
-  <a href="https://docs.stateset.io/stateset-docs/stateset-commerce-network-guides/chain-development/get-started" target="_blank"><strong>Explore the Docs »</strong></a>
-</p>
-<p align="center">
-  <a href="https://github.com/stateset/stateset-js" target="_blank"><strong>GitHub</strong></a>
-</p>
-
 <h1 id="table-of-contents">Table of Contents</h1>
 
 - [Key Features](#key-features)
