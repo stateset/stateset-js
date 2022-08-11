@@ -1,22 +1,12 @@
 <p align="center">
-  <img src="./media/logo-light.svg#gh-light-mode-only" type="image/svg+xml" width="75%" class="light-logo" />
-  <img src="./media/logo-dark.svg#gh-dark-mode-only" type="image/svg+xml" width="75%" class="dark-logo" />
-</p>
-
-<p align="center">
   The JavaScript SDK for Stateset Commerce Network
-</p>
-
-<p align="center">
-  <img alt="npm" src="https://img.shields.io/npm/v/statesetjs/beta" />
-  <img alt="ci" style="margin-left: 0.3em" src="https://github.com/scrtlabs/stateset.js/actions/workflows/test.yml/badge.svg?branch=master" />
 </p>
 
 <p align="center">
   <a href="https://statesetjs.scrt.network" target="_blank"><strong>Explore the Docs »</strong></a>
 </p>
 <p align="center">
-  <a href="https://github.com/scrtlabs/stateset.js" target="_blank"><strong>GitHub »</strong></a>
+  <a href="https://github.com/stateset/stateset.js" target="_blank"><strong>GitHub »</strong></a>
 </p>
 
 <h1 id="table-of-contents">Table of Contents</h1>
@@ -58,7 +48,7 @@ Stateset.js a JavaScript SDK for writing applications that interact with the Sta
 
 This library is still in beta, **APIs may break**. Beta testers are welcome!
 
-See [project board](https://github.com/scrtlabs/stateset.js/projects/1) for list of existing/missing features.
+See [project board](https://github.com/stateset/stateset.js/projects/1) for list of existing/missing features.
 
 # Installation
 
@@ -74,7 +64,7 @@ yarn add stateset-js@beta
 
 # Usage Examples
 
-Note: Public gRPC-web endpoints can be found in https://github.com/scrtlabs/api-registry for both mainnet and testnet.
+Note: Public gRPC-web endpoints can be found in https://github.com/stateset/api-registry for both mainnet and testnet.
 
 For a lot more usage examples [refer to the tests](./test/test.ts).
 
@@ -84,7 +74,7 @@ For a lot more usage examples [refer to the tests](./test/test.ts).
 
 import { StatesetNetworkClient, grpc } from "stateset-js";
 
-const grpcWebUrl = "TODO get from https://github.com/scrtlabs/api-registry";
+const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a readonly stateset.js client, just pass in a gRPC-web endpoint
 const statesetjs = await StatesetNetworkClient.create({
@@ -130,7 +120,7 @@ const wallet = new Wallet(
 );
 const myAddress = wallet.address;
 
-const grpcWebUrl = "TODO get from https://github.com/scrtlabs/api-registry";
+const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a signer stateset.js client, also pass in a wallet
 const statesetjs = await StatesetNetworkClient.create({
@@ -176,7 +166,7 @@ await window.keplr.enable(CHAIN_ID);
 const keplrOfflineSigner = window.getOfflineSignerOnlyAmino(CHAIN_ID);
 const [{ address: myAddress }] = await keplrOfflineSigner.getAccounts();
 
-const grpcWebUrl = "TODO get from https://github.com/scrtlabs/api-registry";
+const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 const statesetjs = await StatesetNetworkClient.create({
   grpcWebUrl,
@@ -248,7 +238,7 @@ Currently this is equivalent to `keplr.getOfflineSigner()` but may change at the
 
 - `v0.9.x` through `v0.16.x` supported `stateset-2` & `stateset-3`
 - `v0.17.x` supports `stateset-4`
-- `v1.2.x` supports `stateset-4`, corresponds to [`v1.2.x` of statesetd](https://github.com/scrtlabs/StatesetNetwork/releases/tag/v1.2.0)
+- `v1.2.x` supports `stateset-4`, corresponds to [`v1.2.x` of statesetd](https://github.com/stateset/StatesetNetwork/releases/tag/v1.2.0)
 
 # API
 
@@ -290,7 +280,7 @@ A querier client can only send queries and get chain information. Access to all 
 ```ts
 import { StatesetNetworkClient } from "statesetjs";
 
-const grpcWebUrl = "TODO get from https://github.com/scrtlabs/api-registry";
+const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a readonly stateset.js client, just pass in a gRPC-web endpoint
 const statesetjs = await StatesetNetworkClient.create({
@@ -313,7 +303,7 @@ const wallet = new Wallet(
 );
 const myAddress = wallet.address;
 
-const grpcWebUrl = "TODO get from https://github.com/scrtlabs/api-registry";
+const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a signer stateset.js client you must also pass in `wallet`, `walletAddress` and `chainId`
 const statesetjs = await StatesetNetworkClient.create({
@@ -846,7 +836,7 @@ const wallet = new Wallet(
 );
 const myAddress = wallet.address;
 
-const grpcWebUrl = "TODO get from https://github.com/scrtlabs/api-registry";
+const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a signer stateset.js client, also pass in a wallet
 const statesetjs = await StatesetNetworkClient.create({
