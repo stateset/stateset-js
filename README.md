@@ -94,7 +94,7 @@ const {
 
 console.log(`I have ${Number(amount) / 1e6} STATE!`);
 
-const sSCRT = "stateset1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek";
+const sSTATE = "stateset1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek";
 // Get codeHash using `statesetcli q compute contract-hash stateset1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek`
 const sScrtCodeHash =
   "af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e";
@@ -1065,9 +1065,9 @@ const tx = await statesetjs.tx.compute.instantiateContract(
     codeId: codeId,
     codeHash: codeHash, // optional but way faster
     initMsg: {
-      name: "Stateset SCRT",
+      name: "Stateset STATE",
       admin: myAddress,
-      symbol: "SSCRT",
+      symbol: "SSTATE",
       decimals: 6,
       initial_balances: [{ address: myAddress, amount: "1" }],
       prng_seed: "eW8=",
@@ -1080,7 +1080,7 @@ const tx = await statesetjs.tx.compute.instantiateContract(
       },
       supported_denoms: ["ustate"],
     },
-    label: "sSCRT",
+    label: "sSTATE",
     initFunds: [], // optional
   },
   {
