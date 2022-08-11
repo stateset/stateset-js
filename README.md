@@ -1,4 +1,4 @@
-### Stateset Network Node.js Library
+# Stateset Network Node.js Library
 
 <p align="center">
   <a href="https://docs.stateset.io/stateset-docs/stateset-commerce-network-guides/chain-development/get-started" target="_blank"><strong>Explore the Docs »</strong></a>
@@ -19,19 +19,19 @@
     - [`getOfflineSignerOnlyAmino()`](#getofflinesigneronlyamino)
     - [`getOfflineSigner()`](#getofflinesigner)
     - [`getOfflineSignerAuto()`](#getofflinesignerauto)
-- [Migrating from Stateset.js v0.17.x](#migrating-from-statesetjs-v017x)
+- [Migrating from Stateset.js v0.17.x](#migrating-from-stateset-v017x)
 - [API](#api)
   - [Wallet](#wallet)
     - [Importing account from mnemonic](#importing-account-from-mnemonic)
     - [Generating a random account](#generating-a-random-account)
   - [StatesetNetworkClient](#statesetnetworkclient)
-    - [Querier stateset.js](#querier-statesetjs)
-    - [Signer stateset.js](#signer-statesetjs)
-    - [`statesetjs.query`](#statesetjsquery)
-    - [`statesetjs.address`](#statesetjsaddress)
-    - [`statesetjs.tx`](#statesetjstx)
+    - [Querier stateset.js](#querier-stateset)
+    - [Signer stateset.js](#signer-stateset)
+    - [`stateset.query`](#statesetquery)
+    - [`stateset.address`](#statesetaddress)
+    - [`stateset.tx`](#statesettx)
 
-# Key Features
+## Key Features
 
 Stateset.js a JavaScript SDK for writing applications that interact with the Stateset Commerce Network blockchain.
 
@@ -42,7 +42,7 @@ Stateset.js a JavaScript SDK for writing applications that interact with the Sta
 - Handles input/output encryption/decryption for Stateset Contracts.
 - Works in Node.js, modern web browsers and React Native.
 
-# Beta Version Notice
+## Beta Version Notice
 
 This library is still in beta, **APIs may break**. Beta testers are welcome!
 
@@ -60,12 +60,6 @@ or
 yarn add stateset-js@beta
 ```
 
-# Usage Examples
-
-Note: Public gRPC-web endpoints can be found in https://github.com/stateset/api-registry for both mainnet and testnet.
-
-For a lot more usage examples [refer to the tests](./test/test.ts).
-
 ## Sending Queries
 
 ```ts
@@ -75,14 +69,14 @@ import { StatesetNetworkClient, grpc } from "stateset-js";
 const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a readonly stateset.js client, just pass in a gRPC-web endpoint
-const statesetjs = await StatesetNetworkClient.create({
+const stateset = await StatesetNetworkClient.create({
   grpcWebUrl,
   chainId: "stateset-1-testnet",
 });
 
 const {
   balance: { amount },
-} = await statesetjs.query.bank.balance(
+} = await stateset.query.bank.balance(
   {
     address: "stateset1ap26qrlp8mcq2pg6r47w43l0y8zkqm8a450s03",
     denom: "ustate",
@@ -99,7 +93,7 @@ const sSTATE = "stateset1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek";
 const sStateCodeHash =
   "af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e";
 
-const { token_info } = await statesetjs.query.compute.queryContract({
+const { token_info } = await stateset.query.compute.queryContract({
   contractAddress: sSTATE,
   codeHash: sStateCodeHash, // optional but way faster
   query: { token_info: {} },
@@ -111,7 +105,7 @@ console.log(`sSTATE has ${token_info.decimals} decimals!`);
 ## Broadcasting Transactions
 
 ```ts
-import { Wallet, StatesetNetworkClient, MsgSend, MsgMultiSend } from "statesetjs";
+import { Wallet, StatesetNetworkClient, MsgSend, MsgMultiSend } from "stateset";
 
 const wallet = new Wallet(
   "grant rice replace explain federal release fix clever romance raise often wild taxi quarter soccer fiber love must tape steak together observe swap guitar",
@@ -121,7 +115,7 @@ const myAddress = wallet.address;
 const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a signer stateset.js client, also pass in a wallet
-const statesetjs = await StatesetNetworkClient.create({
+const stateset = await StatesetNetworkClient.create({
   grpcWebUrl,
   chainId: "stateset-1-testnet",
   wallet: wallet,
@@ -135,7 +129,7 @@ const msg = new MsgSend({
   amount: [{ denom: "ustate", amount: "1" }],
 });
 
-const tx = await statesetjs.tx.broadcast([msg], {
+const tx = await stateset.tx.broadcast([msg], {
   gasLimit: 20_000,
   gasPriceInFeeDenom: 0.25,
   feeDenom: "ustate",
@@ -166,7 +160,7 @@ const [{ address: myAddress }] = await keplrOfflineSigner.getAccounts();
 
 const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
-const statesetjs = await StatesetNetworkClient.create({
+const stateset = await StatesetNetworkClient.create({
   grpcWebUrl,
   chainId: CHAIN_ID,
   wallet: keplrOfflineSigner,
@@ -176,7 +170,7 @@ const statesetjs = await StatesetNetworkClient.create({
 
 // Note: Using `window.getEnigmaUtils` is optional, it will allow
 // Keplr to use the same encryption seed across sessions for the account.
-// The benefit of this is that `statesetjs.query.getTx()` will be able to decrypt
+// The benefit of this is that `stateset.query.getTx()` will be able to decrypt
 // the response across sessions.
 ```
 
@@ -187,34 +181,34 @@ Although this is the legacy way of signing transactions on cosmos-sdk, it's stil
 - 🟩 Looks good on Keplr
 - 🟩 Supports users signing with Ledger
 - 🟥 Doesn't support signing transactions with these Msgs:
-  - [authz/MsgExec](https://statesetjs.stateset.network/classes/MsgExec)
-  - [authz/MsgGrant](https://statesetjs.stateset.network/classes/MsgGrant)
-  - [authz/MsgRevoke](https://statesetjs.stateset.network/classes/MsgRevoke)
-  - [feegrant/MsgGrantAllowance](https://statesetjs.stateset.network/classes/MsgGrantAllowance)
-  - [feegrant/MsgRevokeAllowance](https://statesetjs.stateset.network/classes/MsgRevokeAllowance)
+  - [authz/MsgExec](https://stateset.stateset.network/classes/MsgExec)
+  - [authz/MsgGrant](https://stateset.stateset.network/classes/MsgGrant)
+  - [authz/MsgRevoke](https://stateset.stateset.network/classes/MsgRevoke)
+  - [feegrant/MsgGrantAllowance](https://stateset.stateset.network/classes/MsgGrantAllowance)
+  - [feegrant/MsgRevokeAllowance](https://stateset.stateset.network/classes/MsgRevokeAllowance)
   - All IBC relayer Msgs:
-    - [gov/MsgSubmitProposal/ClientUpdateProposal](https://statesetjs.stateset.network/enums/ProposalType#ClientUpdateProposal)
-    - [gov/MsgSubmitProposal/UpgradeProposal](https://statesetjs.stateset.network/enums/ProposalType#UpgradeProposal)
-    - [ibc_channel/MsgAcknowledgement](https://statesetjs.stateset.network/classes/MsgAcknowledgement)
-    - [ibc_channel/MsgChannelCloseConfirm](https://statesetjs.stateset.network/classes/MsgChannelCloseConfirm)
-    - [ibc_channel/MsgChannelCloseInit](https://statesetjs.stateset.network/classes/MsgChannelCloseInit)
-    - [ibc_channel/MsgChannelOpenAck](https://statesetjs.stateset.network/classes/MsgChannelOpenAck)
-    - [ibc_channel/MsgChannelOpenConfirm](https://statesetjs.stateset.network/classes/MsgChannelOpenConfirm)
-    - [ibc_channel/MsgChannelOpenInit](https://statesetjs.stateset.network/classes/MsgChannelOpenInit)
-    - [ibc_channel/MsgChannelOpenTry](https://statesetjs.stateset.network/classes/MsgChannelOpenTry)
-    - [ibc_channel/MsgRecvPacket](https://statesetjs.stateset.network/classes/MsgRecvPacket)
-    - [ibc_channel/MsgTimeout](https://statesetjs.stateset.network/classes/MsgTimeout)
-    - [ibc_channel/MsgTimeoutOnClose](https://statesetjs.stateset.network/classes/MsgTimeoutOnClose)
-    - [ibc_client/MsgCreateClient](https://statesetjs.stateset.network/classes/MsgCreateClient)
-    - [ibc_client/MsgSubmitMisbehaviour](https://statesetjs.stateset.network/classes/MsgSubmitMisbehaviour)
-    - [ibc_client/MsgUpdateClient](https://statesetjs.stateset.network/classes/MsgUpdateClient)
-    - [ibc_client/MsgUpgradeClient](https://statesetjs.stateset.network/classes/MsgUpgradeClient)
-    - [ibc_connection/MsgConnectionOpenAck](https://statesetjs.stateset.network/classes/MsgConnectionOpenAck)
-    - [ibc_connection/MsgConnectionOpenConfirm](https://statesetjs.stateset.network/classes/MsgConnectionOpenConfirm)
-    - [ibc_connection/MsgConnectionOpenInit](https://statesetjs.stateset.network/classes/MsgConnectionOpenInit)
-    - [ibc_connection/MsgConnectionOpenTry](https://statesetjs.stateset.network/classes/MsgConnectionOpenTry)
+    - [gov/MsgSubmitProposal/ClientUpdateProposal](https://stateset.stateset.network/enums/ProposalType#ClientUpdateProposal)
+    - [gov/MsgSubmitProposal/UpgradeProposal](https://stateset.stateset.network/enums/ProposalType#UpgradeProposal)
+    - [ibc_channel/MsgAcknowledgement](https://stateset.stateset.network/classes/MsgAcknowledgement)
+    - [ibc_channel/MsgChannelCloseConfirm](https://stateset.stateset.network/classes/MsgChannelCloseConfirm)
+    - [ibc_channel/MsgChannelCloseInit](https://stateset.stateset.network/classes/MsgChannelCloseInit)
+    - [ibc_channel/MsgChannelOpenAck](https://stateset.stateset.network/classes/MsgChannelOpenAck)
+    - [ibc_channel/MsgChannelOpenConfirm](https://stateset.stateset.network/classes/MsgChannelOpenConfirm)
+    - [ibc_channel/MsgChannelOpenInit](https://stateset.stateset.network/classes/MsgChannelOpenInit)
+    - [ibc_channel/MsgChannelOpenTry](https://stateset.stateset.network/classes/MsgChannelOpenTry)
+    - [ibc_channel/MsgRecvPacket](https://stateset.stateset.network/classes/MsgRecvPacket)
+    - [ibc_channel/MsgTimeout](https://stateset.stateset.network/classes/MsgTimeout)
+    - [ibc_channel/MsgTimeoutOnClose](https://stateset.stateset.network/classes/MsgTimeoutOnClose)
+    - [ibc_client/MsgCreateClient](https://stateset.stateset.network/classes/MsgCreateClient)
+    - [ibc_client/MsgSubmitMisbehaviour](https://stateset.stateset.network/classes/MsgSubmitMisbehaviour)
+    - [ibc_client/MsgUpdateClient](https://stateset.stateset.network/classes/MsgUpdateClient)
+    - [ibc_client/MsgUpgradeClient](https://stateset.stateset.network/classes/MsgUpgradeClient)
+    - [ibc_connection/MsgConnectionOpenAck](https://stateset.stateset.network/classes/MsgConnectionOpenAck)
+    - [ibc_connection/MsgConnectionOpenConfirm](https://stateset.stateset.network/classes/MsgConnectionOpenConfirm)
+    - [ibc_connection/MsgConnectionOpenInit](https://stateset.stateset.network/classes/MsgConnectionOpenInit)
+    - [ibc_connection/MsgConnectionOpenTry](https://stateset.stateset.network/classes/MsgConnectionOpenTry)
 
-Note that [ibc_transfer/MsgTransfer](https://statesetjs.stateset.network/classes/MsgTransfer) for sending funds across IBC **is** supported.
+Note that [ibc_transfer/MsgTransfer](https://stateset.stateset.network/classes/MsgTransfer) for sending funds across IBC **is** supported.
 
 <img src="./media/keplr-amino.png" width="65%" style="border-style: solid;border-color: #5e72e4;border-radius: 10px;" />
 
@@ -244,12 +238,12 @@ Currently this is equivalent to `keplr.getOfflineSigner()` but may change at the
 
 An offline wallet implementation, used to sign transactions. Usually we'd just want to pass it to `StatesetNetworkClient`.
 
-[**Full API »**](https://statesetjs.stateset.network/classes/Wallet.html)
+[**Full API »**](https://stateset.stateset.network/classes/Wallet.html)
 
 ### Importing account from mnemonic
 
 ```ts
-import { Wallet } from "statesetjs";
+import { Wallet } from "stateset";
 
 const wallet = new Wallet(
   "grant rice replace explain federal release fix clever romance raise often wild taxi quarter soccer fiber love must tape steak together observe swap guitar",
@@ -260,7 +254,7 @@ const myAddress = wallet.address;
 ### Generating a random account
 
 ```ts
-import { Wallet } from "statesetjs";
+import { Wallet } from "stateset";
 
 const wallet = new Wallet();
 const myAddress = wallet.address;
@@ -269,19 +263,19 @@ const myMnemonicPhrase = wallet.mnemonic;
 
 ## StatesetNetworkClient
 
-[**Full API »**](https://statesetjs.stateset.network/classes/StatesetNetworkClient.html)
+[**Full API »**](https://stateset.stateset.network/classes/StatesetNetworkClient.html)
 
 ### Querier stateset.js
 
-A querier client can only send queries and get chain information. Access to all query types can be done via `statesetjs.query`.
+A querier client can only send queries and get chain information. Access to all query types can be done via `stateset.query`.
 
 ```ts
-import { StatesetNetworkClient } from "statesetjs";
+import { StatesetNetworkClient } from "stateset";
 
 const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a readonly stateset.js client, just pass in a gRPC-web endpoint
-const statesetjs = await StatesetNetworkClient.create({
+const stateset = await StatesetNetworkClient.create({
   chainId: "stateset-1-testnet",
   grpcWebUrl,
 });
@@ -291,10 +285,10 @@ const statesetjs = await StatesetNetworkClient.create({
 
 A signer client can broadcast transactions, send queries and get chain information.
 
-Here in addition to `statesetjs.query`, there are also `statesetjs.tx` & `statesetjs.address`.
+Here in addition to `stateset.query`, there are also `stateset.tx` & `stateset.address`.
 
 ```ts
-import { Wallet, StatesetNetworkClient, MsgSend, MsgMultiSend } from "statesetjs";
+import { Wallet, StatesetNetworkClient, MsgSend, MsgMultiSend } from "stateset";
 
 const wallet = new Wallet(
   "grant rice replace explain federal release fix clever romance raise often wild taxi quarter soccer fiber love must tape steak together observe swap guitar",
@@ -304,7 +298,7 @@ const myAddress = wallet.address;
 const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a signer stateset.js client you must also pass in `wallet`, `walletAddress` and `chainId`
-const statesetjs = await StatesetNetworkClient.create({
+const stateset = await StatesetNetworkClient.create({
   grpcWebUrl,
   chainId: "stateset-1-network",
   wallet: wallet,
@@ -312,13 +306,13 @@ const statesetjs = await StatesetNetworkClient.create({
 });
 ```
 
-### `statesetjs.query`
+### `stateset.query`
 
-#### `statesetjs.query.getTx(hash)`
+#### `stateset.query.getTx(hash)`
 
 Returns a transaction with a txhash. `hash` is a 64 character upper-case hex string.
 
-#### `statesetjs.query.txsQuery(query)`
+#### `stateset.query.txsQuery(query)`
 
 Returns all transactions that match a query.
 
@@ -334,28 +328,28 @@ Tendermint provides a few predefined keys: `tx.hash` and `tx.height`. You can pr
 
 To create a query for txs where AddrA transferred funds: `transfer.sender = 'AddrA'`
 
-See `txsQuery` under https://statesetjs.stateset.network/modules#Querier.
+See `txsQuery` under https://stateset.stateset.network/modules#Querier.
 
-#### `statesetjs.query.auth.account()`
+#### `stateset.query.auth.account()`
 
 Returns account details based on address.
 
 ```ts
-const { address, accountNumber, sequence } = await statesetjs.query.auth.account({
+const { address, accountNumber, sequence } = await stateset.query.auth.account({
   address: myAddress,
 });
 ```
 
-#### `statesetjs.query.auth.accounts()`
+#### `stateset.query.auth.accounts()`
 
 Returns all existing accounts on the blockchain.
 
 ```ts
 /// Get all accounts
-const result = await statesetjs.query.auth.accounts({});
+const result = await stateset.query.auth.accounts({});
 ```
 
-#### `statesetjs.query.auth.params()`
+#### `stateset.query.auth.params()`
 
 Queries all x/auth parameters.
 
@@ -368,65 +362,65 @@ const {
     txSigLimit,
     txSizeCostPerByte,
   },
-} = await statesetjs.query.auth.params();
+} = await stateset.query.auth.params();
 ```
 
-#### `statesetjs.query.authz.grants()`
+#### `stateset.query.authz.grants()`
 
 Returns list of authorizations, granted to the grantee by the granter.
 
-#### `statesetjs.query.bank.balance()`
+#### `stateset.query.bank.balance()`
 
 Balance queries the balance of a single coin for a single account.
 
 ```ts
-const { balance } = await statesetjs.query.bank.balance({
+const { balance } = await stateset.query.bank.balance({
   address: myAddress,
   denom: "ustate",
 });
 ```
 
-#### `statesetjs.query.bank.allBalances()`
+#### `stateset.query.bank.allBalances()`
 
 AllBalances queries the balance of all coins for a single account.
 
-#### `statesetjs.query.bank.totalSupply()`
+#### `stateset.query.bank.totalSupply()`
 
 TotalSupply queries the total supply of all coins.
 
-#### `statesetjs.query.bank.supplyOf()`
+#### `stateset.query.bank.supplyOf()`
 
 SupplyOf queries the supply of a single coin.
 
-#### `statesetjs.query.bank.params()`
+#### `stateset.query.bank.params()`
 
 Params queries the parameters of x/bank module.
 
-#### `statesetjs.query.bank.denomMetadata()`
+#### `stateset.query.bank.denomMetadata()`
 
 DenomsMetadata queries the client metadata of a given coin denomination.
 
-#### `statesetjs.query.bank.denomsMetadata()`
+#### `stateset.query.bank.denomsMetadata()`
 
 DenomsMetadata queries the client metadata for all registered coin denominations.
 
-#### `statesetjs.query.compute.contractCodeHash()`
+#### `stateset.query.compute.contractCodeHash()`
 
 Get codeHash of a Stateset Contract.
 
-#### `statesetjs.query.compute.codeHash()`
+#### `stateset.query.compute.codeHash()`
 
 Get codeHash from a code id.
 
-#### `statesetjs.query.compute.contractInfo()`
+#### `stateset.query.compute.contractInfo()`
 
 Get metadata of a Stateset Contract.
 
-#### `statesetjs.query.compute.contractsByCode()`
+#### `stateset.query.compute.contractsByCode()`
 
 Get all contracts that were instantiated from a code id.
 
-#### `statesetjs.query.compute.queryContract()`
+#### `stateset.query.compute.queryContract()`
 
 Query a Stateset Contract.
 
@@ -440,394 +434,394 @@ type Result = {
   };
 };
 
-const result = (await statesetjs.query.compute.queryContract({
+const result = (await stateset.query.compute.queryContract({
   contractAddress: sStateAddress,
   codeHash: sStateCodeHash, // optional but way faster
   query: { token_info: {} },
 })) as Result;
 ```
 
-#### `statesetjs.query.compute.code()`
+#### `stateset.query.compute.code()`
 
 Get WASM bytecode and metadata for a code id.
 
 ```ts
-const { codeInfo } = await statesetjs.query.compute.code(codeId);
+const { codeInfo } = await stateset.query.compute.code(codeId);
 ```
 
-#### `statesetjs.query.compute.codes()`
+#### `stateset.query.compute.codes()`
 
 Query all contract codes on-chain.
 
-#### `statesetjs.query.distribution.params()`
+#### `stateset.query.distribution.params()`
 
 Params queries params of the distribution module.
 
-#### `statesetjs.query.distribution.validatorOutstandingRewards()`
+#### `stateset.query.distribution.validatorOutstandingRewards()`
 
 ValidatorOutstandingRewards queries rewards of a validator address.
 
-#### `statesetjs.query.distribution.validatorCommission()`
+#### `stateset.query.distribution.validatorCommission()`
 
 ValidatorCommission queries accumulated commission for a validator.
 
-#### `statesetjs.query.distribution.validatorSlashes()`
+#### `stateset.query.distribution.validatorSlashes()`
 
 ValidatorSlashes queries slash events of a validator.
 
-#### `statesetjs.query.distribution.delegationRewards()`
+#### `stateset.query.distribution.delegationRewards()`
 
 DelegationRewards queries the total rewards accrued by a delegation.
 
-#### `statesetjs.query.distribution.delegationTotalRewards()`
+#### `stateset.query.distribution.delegationTotalRewards()`
 
 DelegationTotalRewards queries the total rewards accrued by a each validator.
 
-#### `statesetjs.query.distribution.delegatorValidators()`
+#### `stateset.query.distribution.delegatorValidators()`
 
 DelegatorValidators queries the validators of a delegator.
 
-#### `statesetjs.query.distribution.delegatorWithdrawAddress()`
+#### `stateset.query.distribution.delegatorWithdrawAddress()`
 
 DelegatorWithdrawAddress queries withdraw address of a delegator.
 
-#### `statesetjs.query.distribution.communityPool()`
+#### `stateset.query.distribution.communityPool()`
 
 CommunityPool queries the community pool coins.
 
-#### `statesetjs.query.distribution.foundationTax()`
+#### `stateset.query.distribution.foundationTax()`
 
 DelegatorWithdrawAddress queries withdraw address of a delegator.
 
-#### `statesetjs.query.evidence.evidence()`
+#### `stateset.query.evidence.evidence()`
 
 Evidence queries evidence based on evidence hash.
 
-#### `statesetjs.query.evidence.allEvidence()`
+#### `stateset.query.evidence.allEvidence()`
 
 AllEvidence queries all evidence.
 
-#### `statesetjs.query.feegrant.allowance()`
+#### `stateset.query.feegrant.allowance()`
 
 Allowance returns fee granted to the grantee by the granter.
 
-#### `statesetjs.query.feegrant.allowances()`
+#### `stateset.query.feegrant.allowances()`
 
 Allowances returns all the grants for address.
 
-#### `statesetjs.query.gov.proposal()`
+#### `stateset.query.gov.proposal()`
 
 Proposal queries proposal details based on ProposalID.
 
-#### `statesetjs.query.gov.proposals()`
+#### `stateset.query.gov.proposals()`
 
 Proposals queries all proposals based on given status.
 
 ```ts
 // Get all proposals
-const { proposals } = await statesetjs.query.gov.proposals({
+const { proposals } = await stateset.query.gov.proposals({
   proposalStatus: ProposalStatus.PROPOSAL_STATUS_UNSPECIFIED,
   voter: "",
   depositor: "",
 });
 ```
 
-#### `statesetjs.query.gov.vote()`
+#### `stateset.query.gov.vote()`
 
 Vote queries voted information based on proposalID, voterAddr.
 
-#### `statesetjs.query.gov.votes()`
+#### `stateset.query.gov.votes()`
 
 Votes queries votes of a given proposal.
 
-#### `statesetjs.query.gov.params()`
+#### `stateset.query.gov.params()`
 
 Params queries all parameters of the gov module.
 
-#### `statesetjs.query.gov.deposit()`
+#### `stateset.query.gov.deposit()`
 
 Deposit queries single deposit information based proposalID, depositAddr.
 
 ```ts
 const {
   deposit: { amount },
-} = await statesetjs.query.gov.deposit({
+} = await stateset.query.gov.deposit({
   depositor: myAddress,
   proposalId: propId,
 });
 ```
 
-#### `statesetjs.query.gov.deposits()`
+#### `stateset.query.gov.deposits()`
 
 Deposits queries all deposits of a single proposal.
 
-#### `statesetjs.query.gov.tallyResult()`
+#### `stateset.query.gov.tallyResult()`
 
 TallyResult queries the tally of a proposal vote.
 
-#### `statesetjs.query.ibc_channel.channel()`
+#### `stateset.query.ibc_channel.channel()`
 
 Channel queries an IBC Channel.
 
-#### `statesetjs.query.ibc_channel.channels()`
+#### `stateset.query.ibc_channel.channels()`
 
 Channels queries all the IBC channels of a chain.
 
-#### `statesetjs.query.ibc_channel.connectionChannels()`
+#### `stateset.query.ibc_channel.connectionChannels()`
 
 ConnectionChannels queries all the channels associated with a connection end.
 
-#### `statesetjs.query.ibc_channel.channelClientState()`
+#### `stateset.query.ibc_channel.channelClientState()`
 
 ChannelClientState queries for the client state for the channel associated with the provided channel identifiers.
 
-#### `statesetjs.query.ibc_channel.channelConsensusState()`
+#### `stateset.query.ibc_channel.channelConsensusState()`
 
 ChannelConsensusState queries for the consensus state for the channel associated with the provided channel identifiers.
 
-#### `statesetjs.query.ibc_channel.packetCommitment()`
+#### `stateset.query.ibc_channel.packetCommitment()`
 
 PacketCommitment queries a stored packet commitment hash.
 
-#### `statesetjs.query.ibc_channel.packetCommitments()`
+#### `stateset.query.ibc_channel.packetCommitments()`
 
 PacketCommitments returns all the packet commitments hashes associated with a channel.
 
-#### `statesetjs.query.ibc_channel.packetReceipt()`
+#### `stateset.query.ibc_channel.packetReceipt()`
 
 PacketReceipt queries if a given packet sequence has been received on the queried chain
 
-#### `statesetjs.query.ibc_channel.packetAcknowledgement()`
+#### `stateset.query.ibc_channel.packetAcknowledgement()`
 
 PacketAcknowledgement queries a stored packet acknowledgement hash.
 
-#### `statesetjs.query.ibc_channel.packetAcknowledgements()`
+#### `stateset.query.ibc_channel.packetAcknowledgements()`
 
 PacketAcknowledgements returns all the packet acknowledgements associated with a channel.
 
-#### `statesetjs.query.ibc_channel.unreceivedPackets()`
+#### `stateset.query.ibc_channel.unreceivedPackets()`
 
 UnreceivedPackets returns all the unreceived IBC packets associated with a channel and sequences.
 
-#### `statesetjs.query.ibc_channel.unreceivedAcks()`
+#### `stateset.query.ibc_channel.unreceivedAcks()`
 
 UnreceivedAcks returns all the unreceived IBC acknowledgements associated with a channel and sequences.
 
-#### `statesetjs.query.ibc_channel.nextSequenceReceive()`
+#### `stateset.query.ibc_channel.nextSequenceReceive()`
 
 NextSequenceReceive returns the next receive sequence for a given channel.
 
-#### `statesetjs.query.ibc_client.clientState()`
+#### `stateset.query.ibc_client.clientState()`
 
 ClientState queries an IBC light client.
 
-#### `statesetjs.query.ibc_client.clientStates()`
+#### `stateset.query.ibc_client.clientStates()`
 
 ClientStates queries all the IBC light clients of a chain.
 
-#### `statesetjs.query.ibc_client.consensusState()`
+#### `stateset.query.ibc_client.consensusState()`
 
 ConsensusState queries a consensus state associated with a client state at a given height.
 
-#### `statesetjs.query.ibc_client.consensusStates()`
+#### `stateset.query.ibc_client.consensusStates()`
 
 ConsensusStates queries all the consensus state associated with a given client.
 
-#### `statesetjs.query.ibc_client.clientStatus()`
+#### `stateset.query.ibc_client.clientStatus()`
 
 Status queries the status of an IBC client.
 
-#### `statesetjs.query.ibc_client.clientParams()`
+#### `stateset.query.ibc_client.clientParams()`
 
 ClientParams queries all parameters of the ibc client.
 
-#### `statesetjs.query.ibc_client.upgradedClientState()`
+#### `stateset.query.ibc_client.upgradedClientState()`
 
 UpgradedClientState queries an Upgraded IBC light client.
 
-#### `statesetjs.query.ibc_client.upgradedConsensusState()`
+#### `stateset.query.ibc_client.upgradedConsensusState()`
 
 UpgradedConsensusState queries an Upgraded IBC consensus state.
 
-#### `statesetjs.query.ibc_connection.connection()`
+#### `stateset.query.ibc_connection.connection()`
 
 Connection queries an IBC connection end.
 
-#### `statesetjs.query.ibc_connection.connections()`
+#### `stateset.query.ibc_connection.connections()`
 
 Connections queries all the IBC connections of a chain.
 
-#### `statesetjs.query.ibc_connection.clientConnections()`
+#### `stateset.query.ibc_connection.clientConnections()`
 
 ClientConnections queries the connection paths associated with a client state.
 
-#### `statesetjs.query.ibc_connection.connectionClientState()`
+#### `stateset.query.ibc_connection.connectionClientState()`
 
 ConnectionClientState queries the client state associated with the connection.
 
-#### `statesetjs.query.ibc_connection.connectionConsensusState()`
+#### `stateset.query.ibc_connection.connectionConsensusState()`
 
 ConnectionConsensusState queries the consensus state associated with the connection.
 
-#### `statesetjs.query.ibc_transfer.denomTrace()`
+#### `stateset.query.ibc_transfer.denomTrace()`
 
 DenomTrace queries a denomination trace information.
 
-#### `statesetjs.query.ibc_transfer.denomTraces()`
+#### `stateset.query.ibc_transfer.denomTraces()`
 
 DenomTraces queries all denomination traces.
 
-#### `statesetjs.query.ibc_transfer.params()`
+#### `stateset.query.ibc_transfer.params()`
 
 Params queries all parameters of the ibc-transfer module.
 
-#### `statesetjs.query.mint.params()`
+#### `stateset.query.mint.params()`
 
 Params returns the total set of minting parameters.
 
-#### `statesetjs.query.mint.inflation()`
+#### `stateset.query.mint.inflation()`
 
 Inflation returns the current minting inflation value.
 
-#### `statesetjs.query.mint.annualProvisions()`
+#### `stateset.query.mint.annualProvisions()`
 
 AnnualProvisions current minting annual provisions value.
 
-#### `statesetjs.query.params.params()`
+#### `stateset.query.params.params()`
 
 Params queries a specific parameter of a module, given its subspace and key.
 
-#### `statesetjs.query.registration.txKey()`
+#### `stateset.query.registration.txKey()`
 
 Returns the key used for transactions.
 
-#### `statesetjs.query.registration.registrationKey()`
+#### `stateset.query.registration.registrationKey()`
 
 Returns the key used for registration.
 
-#### `statesetjs.query.registration.encryptedSeed()`
+#### `stateset.query.registration.encryptedSeed()`
 
 Returns the encrypted seed for a registered node by public key.
 
-#### `statesetjs.query.slashing.params()`
+#### `stateset.query.slashing.params()`
 
 Params queries the parameters of slashing module.
 
-#### `statesetjs.query.slashing.signingInfo()`
+#### `stateset.query.slashing.signingInfo()`
 
 SigningInfo queries the signing info of given cons address.
 
-#### `statesetjs.query.slashing.signingInfos()`
+#### `stateset.query.slashing.signingInfos()`
 
 SigningInfos queries signing info of all validators.
 
-#### `statesetjs.query.staking.validators()`
+#### `stateset.query.staking.validators()`
 
 Validators queries all validators that match the given status.
 
 ```ts
 // Get all validators
-const { validators } = await statesetjs.query.staking.validators({ status: "" });
+const { validators } = await stateset.query.staking.validators({ status: "" });
 ```
 
-#### `statesetjs.query.staking.validator()`
+#### `stateset.query.staking.validator()`
 
 Validator queries validator info for given validator address.
 
-#### `statesetjs.query.staking.validatorDelegations()`
+#### `stateset.query.staking.validatorDelegations()`
 
 ValidatorDelegations queries delegate info for given validator.
 
-#### `statesetjs.query.staking.validatorUnbondingDelegations()`
+#### `stateset.query.staking.validatorUnbondingDelegations()`
 
 ValidatorUnbondingDelegations queries unbonding delegations of a validator.
 
-#### `statesetjs.query.staking.delegation()`
+#### `stateset.query.staking.delegation()`
 
 Delegation queries delegate info for given validator delegator pair.
 
-#### `statesetjs.query.staking.unbondingDelegation()`
+#### `stateset.query.staking.unbondingDelegation()`
 
 UnbondingDelegation queries unbonding info for given validator delegator pair.
 
-#### `statesetjs.query.staking.delegatorDelegations()`
+#### `stateset.query.staking.delegatorDelegations()`
 
 DelegatorDelegations queries all delegations of a given delegator address.
 
-#### `statesetjs.query.staking.delegatorUnbondingDelegations()`
+#### `stateset.query.staking.delegatorUnbondingDelegations()`
 
 DelegatorUnbondingDelegations queries all unbonding delegations of a given delegator address.
 
-#### `statesetjs.query.staking.redelegations()`
+#### `stateset.query.staking.redelegations()`
 
 Redelegations queries redelegations of given address.
 
-#### `statesetjs.query.staking.delegatorValidators()`
+#### `stateset.query.staking.delegatorValidators()`
 
 DelegatorValidators queries all validators info for given delegator address.
 
-#### `statesetjs.query.staking.delegatorValidator()`
+#### `stateset.query.staking.delegatorValidator()`
 
 DelegatorValidator queries validator info for given delegator validator pair.
 
-#### `statesetjs.query.staking.historicalInfo()`
+#### `stateset.query.staking.historicalInfo()`
 
 HistoricalInfo queries the historical info for given height.
 
-#### `statesetjs.query.staking.pool()`
+#### `stateset.query.staking.pool()`
 
 Pool queries the pool info.
 
-#### `statesetjs.query.staking.params()`
+#### `stateset.query.staking.params()`
 
 Parameters queries the staking parameters.
 
-#### `statesetjs.query.tendermint.getNodeInfo()`
+#### `stateset.query.tendermint.getNodeInfo()`
 
 GetNodeInfo queries the current node info.
 
-#### `statesetjs.query.tendermint.getSyncing()`
+#### `stateset.query.tendermint.getSyncing()`
 
 GetSyncing queries node syncing.
 
-#### `statesetjs.query.tendermint.getLatestBlock()`
+#### `stateset.query.tendermint.getLatestBlock()`
 
 GetLatestBlock returns the latest block.
 
-#### `statesetjs.query.tendermint.getBlockByHeight()`
+#### `stateset.query.tendermint.getBlockByHeight()`
 
 GetBlockByHeight queries block for given height.
 
-#### `statesetjs.query.tendermint.getLatestValidatorSet()`
+#### `stateset.query.tendermint.getLatestValidatorSet()`
 
 GetLatestValidatorSet queries latest validator-set.
 
-#### `statesetjs.query.tendermint.getValidatorSetByHeight()`
+#### `stateset.query.tendermint.getValidatorSetByHeight()`
 
 GetValidatorSetByHeight queries validator-set at a given height.
 
-#### `statesetjs.query.upgrade.currentPlan()`
+#### `stateset.query.upgrade.currentPlan()`
 
 CurrentPlan queries the current upgrade plan.
 
-#### `statesetjs.query.upgrade.appliedPlan()`
+#### `stateset.query.upgrade.appliedPlan()`
 
 AppliedPlan queries a previously applied upgrade plan by its name.
 
-#### `statesetjs.query.upgrade.upgradedConsensusState()`
+#### `stateset.query.upgrade.upgradedConsensusState()`
 
 UpgradedConsensusState queries the consensus state that will serve as a trusted kernel for the next version of this chain. It will only be stored at the last height of this chain.
 
-#### `statesetjs.query.upgrade.moduleVersions()`
+#### `stateset.query.upgrade.moduleVersions()`
 
 ModuleVersions queries the list of module versions from state.
 
-### `statesetjs.address`
+### `stateset.address`
 
-On a signer stateset.js, `statesetjs.address` is the same as `walletAddress`:
+On a signer stateset.js, `stateset.address` is the same as `walletAddress`:
 
 ```ts
-import { Wallet, StatesetNetworkClient } from "statesetjs";
+import { Wallet, StatesetNetworkClient } from "stateset";
 
 const wallet = new Wallet(
   "grant rice replace explain federal release fix clever romance raise often wild taxi quarter soccer fiber love must tape steak together observe swap guitar",
@@ -837,27 +831,27 @@ const myAddress = wallet.address;
 const grpcWebUrl = "TODO get from https://github.com/stateset/api-registry";
 
 // To create a signer stateset.js client, also pass in a wallet
-const statesetjs = await StatesetNetworkClient.create({
+const stateset = await StatesetNetworkClient.create({
   grpcWebUrl,
   chainId: "stateset-4",
   wallet: wallet,
   walletAddress: myAddress,
 });
 
-const alsoMyAddress = statesetjs.address;
+const alsoMyAddress = stateset.address;
 ```
 
-### `statesetjs.tx`
+### `stateset.tx`
 
-On a signer stateset.js, `statesetjs.tx` is used to broadcast transactions. Every function under `statesetjs.tx` can receive an optional [TxOptions](https://statesetjs.stateset.network/modules#TxOptions).
+On a signer stateset.js, `stateset.tx` is used to broadcast transactions. Every function under `stateset.tx` can receive an optional [TxOptions](https://stateset.stateset.network/modules#TxOptions).
 
-[**Full API »**](https://statesetjs.stateset.network/modules#TxSender)
+[**Full API »**](https://stateset.stateset.network/modules#TxSender)
 
-#### `statesetjs.tx.broadcast()`
+#### `stateset.tx.broadcast()`
 
 Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
 
-For a list of all messages see: https://statesetjs.stateset.network/interfaces/Msg
+For a list of all messages see: https://stateset.stateset.network/interfaces/Msg
 
 ```ts
 const addMinterMsg = new MsgExecuteContract({
@@ -893,16 +887,16 @@ const mintMsg = new MsgExecuteContract({
   sentFunds: [], // optional
 });
 
-const tx = await statesetjs.tx.broadcast([addMinterMsg, mintMsg], {
+const tx = await stateset.tx.broadcast([addMinterMsg, mintMsg], {
   gasLimit: 200_000,
 });
 ```
 
-#### `statesetjs.tx.simulate()`
+#### `stateset.tx.simulate()`
 
 Used to simulate a complex transactions, which contains a list of messages, without broadcasting it to the chain. Can be used to get a gas estimation or to see the output without actually committing a transaction on-chain.
 
-The input should be exactly how you'd use it in `statesetjs.tx.broadcast()`, except that you don't have to pass in `gasLimit`, `gasPriceInFeeDenom` & `feeDenom`.
+The input should be exactly how you'd use it in `stateset.tx.broadcast()`, except that you don't have to pass in `gasLimit`, `gasPriceInFeeDenom` & `feeDenom`.
 
 Notes:
 
@@ -922,52 +916,52 @@ const sendToEve = new MsgSend({
   amount: [{ denom: "ustate", amount: "1" }],
 });
 
-const sim = await statesetjs.tx.simulate([sendToAlice, sendToEve]);
+const sim = await stateset.tx.simulate([sendToAlice, sendToEve]);
 
-const tx = await statesetjs.tx.broadcast([sendToAlice, sendToEve], {
+const tx = await stateset.tx.broadcast([sendToAlice, sendToEve], {
   // Adjust gasLimit up by 10% to account for gas estimation error
   gasLimit: Math.ceil(sim.gasInfo.gasUsed * 1.1),
 });
 ```
 
-#### `statesetjs.tx.authz.exec()`
+#### `stateset.tx.authz.exec()`
 
 MsgExec attempts to execute the provided messages using authorizations granted to the grantee. Each message should have only one signer corresponding to the granter of the authorization.
 
-Input: [MsgExecParams](https://statesetjs.stateset.network/interfaces/MsgExecParams)
+Input: [MsgExecParams](https://stateset.stateset.network/interfaces/MsgExecParams)
 
-##### `statesetjs.tx.authz.exec.simulate()`
+##### `stateset.tx.authz.exec.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.authz.grant()`
+#### `stateset.tx.authz.grant()`
 
 MsgGrant is a request type for Grant method. It declares authorization to the grantee on behalf of the granter with the provided expiration time.
 
-Input: [MsgGrantParams](https://statesetjs.stateset.network/interfaces/MsgGrantParams)
+Input: [MsgGrantParams](https://stateset.stateset.network/interfaces/MsgGrantParams)
 
-##### `statesetjs.tx.authz.grant.simulate()`
+##### `stateset.tx.authz.grant.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.authz.revoke()`
+#### `stateset.tx.authz.revoke()`
 
 MsgRevoke revokes any authorization with the provided sdk.Msg type on the granter's account with that has been granted to the grantee.
 
-Input: [MsgRevokeParams](https://statesetjs.stateset.network/interfaces/MsgRevokeParams)
+Input: [MsgRevokeParams](https://stateset.stateset.network/interfaces/MsgRevokeParams)
 
-##### `statesetjs.tx.authz.revoke.simulate()`
+##### `stateset.tx.authz.revoke.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.bank.multiSend()`
+#### `stateset.tx.bank.multiSend()`
 
 MsgMultiSend represents an arbitrary multi-in, multi-out send message.
 
-Input: [MsgMultiSendParams](https://statesetjs.stateset.network/interfaces/MsgMultiSendParams)
+Input: [MsgMultiSendParams](https://stateset.stateset.network/interfaces/MsgMultiSendParams)
 
 ```ts
-const tx = await statesetjs.tx.bank.multiSend(
+const tx = await stateset.tx.bank.multiSend(
   {
     inputs: [
       {
@@ -992,18 +986,18 @@ const tx = await statesetjs.tx.bank.multiSend(
 );
 ```
 
-    ##### `statesetjs.tx.bank.multiSend.simulate()`
+    ##### `stateset.tx.bank.multiSend.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.bank.send()`
+#### `stateset.tx.bank.send()`
 
 MsgSend represents a message to send coins from one account to another.
 
-Input: [MsgSendParams](https://statesetjs.state.network/interfaces/MsgSendParams)
+Input: [MsgSendParams](https://stateset.state.network/interfaces/MsgSendParams)
 
 ```ts
-const tx = await statesetjs.tx.bank.send(
+const tx = await stateset.tx.bank.send(
   {
     fromAddress: myAddress,
     toAddress: alice,
@@ -1015,18 +1009,18 @@ const tx = await statesetjs.tx.bank.send(
 );
 ```
 
-##### `statesetjs.tx.bank.send.simulate()`
+##### `stateset.tx.bank.send.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.compute.storeCode()`
+#### `stateset.tx.compute.storeCode()`
 
 Upload a compiled contract to Stateset Network
 
-Input: [MsgStoreCodeParams](https://statesetjs.state.network/interfaces/MsgStoreCodeParams)
+Input: [MsgStoreCodeParams](https://stateset.state.network/interfaces/MsgStoreCodeParams)
 
 ```ts
-const tx = await statesetjs.tx.compute.storeCode(
+const tx = await stateset.tx.compute.storeCode(
   {
     sender: myAddress,
     wasmByteCode: fs.readFileSync(
@@ -1046,20 +1040,20 @@ const codeId = Number(
 );
 ```
 
-##### `statesetjs.tx.compute.storeCode.simulate()`
+##### `stateset.tx.compute.storeCode.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.compute.instantiateContract()`
+#### `stateset.tx.compute.instantiateContract()`
 
 Instantiate a contract from code id
 
-Input: [MsgInstantiateContractParams](https://statesetjs.state.network/interfaces/MsgInstanti
+Input: [MsgInstantiateContractParams](https://stateset.state.network/interfaces/MsgInstanti
 
 ateContractParams)
 
 ```ts
-const tx = await statesetjs.tx.compute.instantiateContract(
+const tx = await stateset.tx.compute.instantiateContract(
   {
     sender: myAddress,
     codeId: codeId,
@@ -1093,18 +1087,18 @@ const contractAddress = tx.arrayLog.find(
 ).value;
 ```
 
-##### `statesetjs.tx.compute.instantiateContract.simulate()`
+##### `stateset.tx.compute.instantiateContract.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.compute.executeContract()`
+#### `stateset.tx.compute.executeContract()`
 
 Execute a function on a contract
 
-Input: [MsgExecuteContractParams](https://statesetjs.stateset.network/interfaces/MsgExecuteContractParams)
+Input: [MsgExecuteContractParams](https://stateset.stateset.network/interfaces/MsgExecuteContractParams)
 
 ```ts
-const tx = await statesetjs.tx.compute.executeContract(
+const tx = await stateset.tx.compute.executeContract(
   {
     sender: myAddress,
     contractAddress: contractAddress,
@@ -1123,28 +1117,28 @@ const tx = await statesetjs.tx.compute.executeContract(
 );
 ```
 
-##### `statesetjs.tx.compute.executeContract.simulate()`
+##### `stateset.tx.compute.executeContract.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.crisis.verifyInvariant()`
+#### `stateset.tx.crisis.verifyInvariant()`
 
 MsgVerifyInvariant represents a message to verify a particular invariance.
 
-Input: [MsgVerifyInvariantParams](https://statesetjs.stateset.network/interfaces/MsgVerifyInvariantParams)
+Input: [MsgVerifyInvariantParams](https://stateset.stateset.network/interfaces/MsgVerifyInvariantParams)
 
-##### `statesetjs.tx.crisis.verifyInvariant.simulate()`
+##### `stateset.tx.crisis.verifyInvariant.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.distribution.fundCommunityPool()`
+#### `stateset.tx.distribution.fundCommunityPool()`
 
 MsgFundCommunityPool allows an account to directly fund the community pool.
 
-Input: [MsgFundCommunityPoolParams](https://statesetjs.stateset.network/interfaces/MsgFundCommunityPoolParams)
+Input: [MsgFundCommunityPoolParams](https://stateset.stateset.network/interfaces/MsgFundCommunityPoolParams)
 
 ```ts
-const tx = await statesetjs.tx.distribution.fundCommunityPool(
+const tx = await stateset.tx.distribution.fundCommunityPool(
   {
     depositor: myAddress,
     amount: [{ amount: "1", denom: "ustate" }],
@@ -1155,18 +1149,18 @@ const tx = await statesetjs.tx.distribution.fundCommunityPool(
 );
 ```
 
-##### `statesetjs.tx.distribution.fundCommunityPool.simulate()`
+##### `stateset.tx.distribution.fundCommunityPool.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.distribution.setWithdrawAddress()`
+#### `stateset.tx.distribution.setWithdrawAddress()`
 
 MsgSetWithdrawAddress sets the withdraw address for a delegator (or validator self-delegation).
 
-Input: [MsgSetWithdrawAddressParams](https://statesetjs.stateset.network/interfaces/MsgSetWithdrawAddressParams)
+Input: [MsgSetWithdrawAddressParams](https://stateset.stateset.network/interfaces/MsgSetWithdrawAddressParams)
 
 ```ts
-const tx = await statesetjs.tx.distribution.setWithdrawAddress(
+const tx = await stateset.tx.distribution.setWithdrawAddress(
   {
     delegatorAddress: mySelfDelegatorAddress,
     withdrawAddress: myOtherAddress,
@@ -1177,20 +1171,20 @@ const tx = await statesetjs.tx.distribution.setWithdrawAddress(
 );
 ```
 
-##### `statesetjs.tx.distribution.setWithdrawAddress.simulate()`
+##### `stateset.tx.distribution.setWithdrawAddress.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.distribution.withdrawDelegatorReward()`
+#### `stateset.tx.distribution.withdrawDelegatorReward()`
 
 MsgWithdrawDelegatorReward represents delegation withdrawal to a delegator from a single validator.
 
-Input: [MsgWithdrawDelegatorRewardParams](https://statesetjs.stateset.network/interfaces/MsgWithdraw
+Input: [MsgWithdrawDelegatorRewardParams](https://stateset.stateset.network/interfaces/MsgWithdraw
 
 DelegatorRewardParams)
 
 ```ts
-const tx = await statesetjs.tx.distribution.withdrawDelegatorReward(
+const tx = await stateset.tx.distribution.withdrawDelegatorReward(
   {
     delegatorAddress: myAddress,
     validatorAddress: someValidatorAddress,
@@ -1201,20 +1195,20 @@ const tx = await statesetjs.tx.distribution.withdrawDelegatorReward(
 );
 ```
 
-##### `statesetjs.tx.distribution.withdrawDelegatorReward.simulate()`
+##### `stateset.tx.distribution.withdrawDelegatorReward.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.distribution.withdrawValidatorCommission()`
+#### `stateset.tx.distribution.withdrawValidatorCommission()`
 
 MsgWithdrawValidatorCommission withdraws the full commission to the validator address.
 
-Input: [MsgWithdrawValidatorCommissionParams](https://statesetjs.stateset.network/interfaces/MsgWithdraw
+Input: [MsgWithdrawValidatorCommissionParams](https://stateset.stateset.network/interfaces/MsgWithdraw
 
 ValidatorCommissionParams)
 
 ```ts
-const tx = await statesetjs.tx.distribution.withdrawValidatorCommission(
+const tx = await stateset.tx.distribution.withdrawValidatorCommission(
   {
     validatorAddress: myValidatorAddress,
   },
@@ -1227,7 +1221,7 @@ const tx = await statesetjs.tx.distribution.withdrawValidatorCommission(
 Or a better one:
 
 ```ts
-const tx = await statesetjs.tx.broadcast(
+const tx = await stateset.tx.broadcast(
   [
     new MsgWithdrawDelegatorReward({
       delegatorAddress: mySelfDelegatorAddress,
@@ -1243,48 +1237,48 @@ const tx = await statesetjs.tx.broadcast(
 );
 ```
 
-##### `statesetjs.tx.distribution.withdrawValidatorCommission.simulate()`
+##### `stateset.tx.distribution.withdrawValidatorCommission.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.evidence.submitEvidence()`
+#### `stateset.tx.evidence.submitEvidence()`
 
 MsgSubmitEvidence represents a message that supports submitting arbitrary evidence of misbehavior such as equivocation or counterfactual signing.
 
-Input: [MsgSubmitEvidenceParams](https://statesetjs.stateset.network/interfaces/MsgSubmitEvidenceParams)
+Input: [MsgSubmitEvidenceParams](https://stateset.stateset.network/interfaces/MsgSubmitEvidenceParams)
 
-##### `statesetjs.tx.evidence.submitEvidence.simulate()`
+##### `stateset.tx.evidence.submitEvidence.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.feegrant.grantAllowance()`
+#### `stateset.tx.feegrant.grantAllowance()`
 
 MsgGrantAllowance adds permission for Grantee to spend up to Allowance of fees from the account of Granter.
 
-Input: [MsgGrantAllowanceParams](https://statesetjs.stateset.network/interfaces/MsgGrantAllowanceParams)
+Input: [MsgGrantAllowanceParams](https://stateset.stateset.network/interfaces/MsgGrantAllowanceParams)
 
-##### `statesetjs.tx.feegrant.grantAllowance.simulate()`
+##### `stateset.tx.feegrant.grantAllowance.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.feegrant.revokeAllowance()`
+#### `stateset.tx.feegrant.revokeAllowance()`
 
 MsgRevokeAllowance removes any existing Allowance from Granter to Grantee.
 
-Input: [MsgRevokeAllowanceParams](https://statesetjs.stateset.network/interfaces/MsgRevokeAllowanceParams)
+Input: [MsgRevokeAllowanceParams](https://stateset.stateset.network/interfaces/MsgRevokeAllowanceParams)
 
-##### `statesetjs.tx.feegrant.revokeAllowance.simulate()`
+##### `stateset.tx.feegrant.revokeAllowance.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.gov.deposit()`
+#### `stateset.tx.gov.deposit()`
 
 MsgDeposit defines a message to submit a deposit to an existing proposal.
 
-Input: [MsgDepositParams](https://statesetjs.stateset.network/interfaces/MsgDepositParams)
+Input: [MsgDepositParams](https://stateset.stateset.network/interfaces/MsgDepositParams)
 
 ```ts
-const tx = await statesetjs.tx.gov.deposit(
+const tx = await stateset.tx.gov.deposit(
   {
     depositor: myAddress,
     proposalId: someProposalId,
@@ -1296,18 +1290,18 @@ const tx = await statesetjs.tx.gov.deposit(
 );
 ```
 
-##### `statesetjs.tx.gov.deposit.simulate()`
+##### `stateset.tx.gov.deposit.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.gov.submitProposal()`
+#### `stateset.tx.gov.submitProposal()`
 
 MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary proposal Content.
 
-Input: [MsgSubmitProposalParams](https://statesetjs.stateset.network/interfaces/MsgSubmitProposalParams)
+Input: [MsgSubmitProposalParams](https://stateset.stateset.network/interfaces/MsgSubmitProposalParams)
 
 ```ts
-const tx = await statesetjs.tx.gov.submitProposal(
+const tx = await stateset.tx.gov.submitProposal(
   {
     type: ProposalType.TextProposal,
     proposer: myAddress,
@@ -1329,18 +1323,18 @@ const proposalId = Number(
 );
 ```
 
-##### `statesetjs.tx.gov.submitProposal.simulate()`
+##### `stateset.tx.gov.submitProposal.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.gov.vote()`
+#### `stateset.tx.gov.vote()`
 
 MsgVote defines a message to cast a vote.
 
-Input: [MsgVoteParams](https://statesetjs.stateset.network/interfaces/MsgVoteParams)
+Input: [MsgVoteParams](https://stateset.stateset.network/interfaces/MsgVoteParams)
 
 ```ts
-const tx = await statesetjs.tx.gov.vote(
+const tx = await stateset.tx.gov.vote(
   {
     voter: myAddress,
     proposalId: someProposalId,
@@ -1352,19 +1346,19 @@ const tx = await statesetjs.tx.gov.vote(
 );
 ```
 
-##### `statesetjs.tx.gov.vote.simulate()`
+##### `stateset.tx.gov.vote.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.gov.voteWeighted()`
+#### `stateset.tx.gov.voteWeighted()`
 
 MsgVoteWeighted defines a message to cast a vote, with an option to split the vote.
 
-Input: [MsgVoteWeightedParams](https://statesetjs.stateset.network/interfaces/MsgVoteWeightedParams)
+Input: [MsgVoteWeightedParams](https://stateset.stateset.network/interfaces/MsgVoteWeightedParams)
 
 ```ts
 // vote yes with 70% of my power
-const tx = await statesetjs.tx.gov.voteWeighted(
+const tx = await stateset.tx.gov.voteWeighted(
   {
     voter: myAddress,
     proposalId: someProposalId,
@@ -1380,28 +1374,28 @@ const tx = await statesetjs.tx.gov.voteWeighted(
 );
 ```
 
-##### `statesetjs.tx.gov.voteWeighted.simulate()`
+##### `stateset.tx.gov.voteWeighted.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.ibc.transfer()`
+#### `stateset.tx.ibc.transfer()`
 
 MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between ICS20 enabled chains. See ICS Spec here: https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer#data-structures
 
-Input: [MsgTransferParams](https://statesetjs.stateset.network/interfaces/MsgTransferParams)
+Input: [MsgTransferParams](https://stateset.stateset.network/interfaces/MsgTransferParams)
 
-##### `statesetjs.tx.ibc.transfer.simulate()`
+##### `stateset.tx.ibc.transfer.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.slashing.unjail()`
+#### `stateset.tx.slashing.unjail()`
 
 MsgUnjail defines a message to release a validator from jail.
 
-Input: [MsgUnjailParams](https://statesetjs.stateset.network/interfaces/MsgUnjailParams)
+Input: [MsgUnjailParams](https://stateset.stateset.network/interfaces/MsgUnjailParams)
 
 ```ts
-const tx = await statesetjs.tx.slashing.unjail(
+const tx = await stateset.tx.slashing.unjail(
   {
     validatorAddr: mValidatorsAddress,
   },
@@ -1411,18 +1405,18 @@ const tx = await statesetjs.tx.slashing.unjail(
 );
 ```
 
-##### `statesetjs.tx.slashing.unjail.simulate()`
+##### `stateset.tx.slashing.unjail.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.staking.beginRedelegate()`
+#### `stateset.tx.staking.beginRedelegate()`
 
 MsgBeginRedelegate defines an SDK message for performing a redelegation of coins from a delegator and source validator to a destination validator.
 
-Input: [MsgBeginRedelegateParams](https://statesetjs.state.network/interfaces/MsgBeginRedelegateParams)
+Input: [MsgBeginRedelegateParams](https://stateset.state.network/interfaces/MsgBeginRedelegateParams)
 
 ```ts
-const tx = await statesetjs.tx.staking.beginRedelegate(
+const tx = await stateset.tx.staking.beginRedelegate(
   {
     delegatorAddress: myAddress,
     validatorSrcAddress: someValidator,
@@ -1435,18 +1429,18 @@ const tx = await statesetjs.tx.staking.beginRedelegate(
 );
 ```
 
-##### `statesetjs.tx.staking.beginRedelegate.simulate()`
+##### `stateset.tx.staking.beginRedelegate.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.staking.createValidator()`
+#### `stateset.tx.staking.createValidator()`
 
 MsgCreateValidator defines an SDK message for creating a new validator.
 
-Input: [MsgCreateValidatorParams](https://statesetjs.stateset.network/interfaces/MsgCreateValidatorParams)
+Input: [MsgCreateValidatorParams](https://stateset.stateset.network/interfaces/MsgCreateValidatorParams)
 
 ```ts
-const tx = await statesetjs.tx.staking.createValidator(
+const tx = await stateset.tx.staking.createValidator(
   {
     selfDelegatorAddress: myAddress,
     commission: {
@@ -1471,18 +1465,18 @@ const tx = await statesetjs.tx.staking.createValidator(
 );
 ```
 
-##### `statesetjs.tx.staking.createValidator.simulate()`
+##### `stateset.tx.staking.createValidator.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.staking.delegate()`
+#### `stateset.tx.staking.delegate()`
 
 MsgDelegate defines an SDK message for performing a delegation of coins from a delegator to a validator.
 
-Input: [MsgDelegateParams](https://statesetjs.stateset.network/interfaces/MsgDelegateParams)
+Input: [MsgDelegateParams](https://stateset.stateset.network/interfaces/MsgDelegateParams)
 
 ```ts
-const tx = await statesetjs.tx.staking.delegate(
+const tx = await stateset.tx.staking.delegate(
   {
     delegatorAddress: myAddress,
     validatorAddress: someValidatorAddress,
@@ -1494,18 +1488,18 @@ const tx = await statesetjs.tx.staking.delegate(
 );
 ```
 
-##### `statesetjs.tx.staking.delegate.simulate()`
+##### `stateset.tx.staking.delegate.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.staking.editValidator()`
+#### `stateset.tx.staking.editValidator()`
 
 MsgEditValidator defines an SDK message for editing an existing validator.
 
-Input: [MsgEditValidatorParams](https://statesetjs.stateset.network/interfaces/MsgEditValidatorParams)
+Input: [MsgEditValidatorParams](https://stateset.stateset.network/interfaces/MsgEditValidatorParams)
 
 ```ts
-const tx = await statesetjs.tx.staking.editValidator(
+const tx = await stateset.tx.staking.editValidator(
   {
     validatorAddress: myValidatorAddress,
     description: {
@@ -1525,18 +1519,18 @@ const tx = await statesetjs.tx.staking.editValidator(
 );
 ```
 
-##### `statesetjs.tx.staking.editValidator.simulate()`
+##### `stateset.tx.staking.editValidator.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
 
-#### `statesetjs.tx.staking.undelegate()`
+#### `stateset.tx.staking.undelegate()`
 
 MsgUndelegate defines an SDK message for performing an undelegation from a delegate and a validator
 
-Input: [MsgUndelegateParams](https://statesetjs.stateset.network/interfaces/MsgUndelegateParams)
+Input: [MsgUndelegateParams](https://stateset.stateset.network/interfaces/MsgUndelegateParams)
 
 ```ts
-const tx = await statesetjs.tx.staking.undelegate(
+const tx = await stateset.tx.staking.undelegate(
   {
     delegatorAddress: myAddress,
     validatorAddress: someValidatorAddress,
@@ -1548,6 +1542,6 @@ const tx = await statesetjs.tx.staking.undelegate(
 );
 ```
 
-##### `statesetjs.tx.staking.undelegate.simulate()`
+##### `stateset.tx.staking.undelegate.simulate()`
 
-Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`statesetjs.tx.simulate()`](#statesetjstxsimulate).
+Simulates execution without sending a transactions. Input is exactly like the parent function. For more info see [`stateset.tx.simulate()`](#statesettxsimulate).
