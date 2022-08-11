@@ -96,7 +96,7 @@ console.log(`I have ${Number(amount) / 1e6} STATE!`);
 
 const sSTATE = "stateset1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek";
 // Get codeHash using `statesetcli q compute contract-hash stateset1k0jntykt7e4g3y88ltc60czgjuqdy4c9e8fzek`
-const sScrtCodeHash =
+const sStateCodeHash =
   "af74387e276be8874f07bec3a87023ee49b0e7ebe08178c49d0a49c3c98ed60e";
 
 const { token_info } = await statesetjs.query.compute.queryContract({
@@ -441,8 +441,8 @@ type Result = {
 };
 
 const result = (await statesetjs.query.compute.queryContract({
-  contractAddress: sScrtAddress,
-  codeHash: sScrtCodeHash, // optional but way faster
+  contractAddress: sStateAddress,
+  codeHash: sStateCodeHash, // optional but way faster
   query: { token_info: {} },
 })) as Result;
 ```
