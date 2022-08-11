@@ -3,10 +3,10 @@
 </p>
 
 <p align="center">
-  <a href="https://statesetjs.scrt.network" target="_blank"><strong>Explore the Docs »</strong></a>
+  <a href="https://docs.stateset.io" target="_blank"><strong>Explore the Docs »</strong></a>
 </p>
 <p align="center">
-  <a href="https://github.com/stateset/stateset.js" target="_blank"><strong>GitHub »</strong></a>
+  <a href="https://github.com/stateset/stateset-js" target="_blank"><strong>GitHub</strong></a>
 </p>
 
 <h1 id="table-of-contents">Table of Contents</h1>
@@ -189,34 +189,34 @@ Although this is the legacy way of signing transactions on cosmos-sdk, it's stil
 - 🟩 Looks good on Keplr
 - 🟩 Supports users signing with Ledger
 - 🟥 Doesn't support signing transactions with these Msgs:
-  - [authz/MsgExec](https://statesetjs.scrt.network/classes/MsgExec)
-  - [authz/MsgGrant](https://statesetjs.scrt.network/classes/MsgGrant)
-  - [authz/MsgRevoke](https://statesetjs.scrt.network/classes/MsgRevoke)
-  - [feegrant/MsgGrantAllowance](https://statesetjs.scrt.network/classes/MsgGrantAllowance)
-  - [feegrant/MsgRevokeAllowance](https://statesetjs.scrt.network/classes/MsgRevokeAllowance)
+  - [authz/MsgExec](https://statesetjs.stateset.network/classes/MsgExec)
+  - [authz/MsgGrant](https://statesetjs.stateset.network/classes/MsgGrant)
+  - [authz/MsgRevoke](https://statesetjs.stateset.network/classes/MsgRevoke)
+  - [feegrant/MsgGrantAllowance](https://statesetjs.stateset.network/classes/MsgGrantAllowance)
+  - [feegrant/MsgRevokeAllowance](https://statesetjs.stateset.network/classes/MsgRevokeAllowance)
   - All IBC relayer Msgs:
-    - [gov/MsgSubmitProposal/ClientUpdateProposal](https://statesetjs.scrt.network/enums/ProposalType#ClientUpdateProposal)
-    - [gov/MsgSubmitProposal/UpgradeProposal](https://statesetjs.scrt.network/enums/ProposalType#UpgradeProposal)
-    - [ibc_channel/MsgAcknowledgement](https://statesetjs.scrt.network/classes/MsgAcknowledgement)
-    - [ibc_channel/MsgChannelCloseConfirm](https://statesetjs.scrt.network/classes/MsgChannelCloseConfirm)
-    - [ibc_channel/MsgChannelCloseInit](https://statesetjs.scrt.network/classes/MsgChannelCloseInit)
-    - [ibc_channel/MsgChannelOpenAck](https://statesetjs.scrt.network/classes/MsgChannelOpenAck)
-    - [ibc_channel/MsgChannelOpenConfirm](https://statesetjs.scrt.network/classes/MsgChannelOpenConfirm)
-    - [ibc_channel/MsgChannelOpenInit](https://statesetjs.scrt.network/classes/MsgChannelOpenInit)
-    - [ibc_channel/MsgChannelOpenTry](https://statesetjs.scrt.network/classes/MsgChannelOpenTry)
-    - [ibc_channel/MsgRecvPacket](https://statesetjs.scrt.network/classes/MsgRecvPacket)
-    - [ibc_channel/MsgTimeout](https://statesetjs.scrt.network/classes/MsgTimeout)
-    - [ibc_channel/MsgTimeoutOnClose](https://statesetjs.scrt.network/classes/MsgTimeoutOnClose)
-    - [ibc_client/MsgCreateClient](https://statesetjs.scrt.network/classes/MsgCreateClient)
-    - [ibc_client/MsgSubmitMisbehaviour](https://statesetjs.scrt.network/classes/MsgSubmitMisbehaviour)
-    - [ibc_client/MsgUpdateClient](https://statesetjs.scrt.network/classes/MsgUpdateClient)
-    - [ibc_client/MsgUpgradeClient](https://statesetjs.scrt.network/classes/MsgUpgradeClient)
-    - [ibc_connection/MsgConnectionOpenAck](https://statesetjs.scrt.network/classes/MsgConnectionOpenAck)
-    - [ibc_connection/MsgConnectionOpenConfirm](https://statesetjs.scrt.network/classes/MsgConnectionOpenConfirm)
-    - [ibc_connection/MsgConnectionOpenInit](https://statesetjs.scrt.network/classes/MsgConnectionOpenInit)
-    - [ibc_connection/MsgConnectionOpenTry](https://statesetjs.scrt.network/classes/MsgConnectionOpenTry)
+    - [gov/MsgSubmitProposal/ClientUpdateProposal](https://statesetjs.stateset.network/enums/ProposalType#ClientUpdateProposal)
+    - [gov/MsgSubmitProposal/UpgradeProposal](https://statesetjs.stateset.network/enums/ProposalType#UpgradeProposal)
+    - [ibc_channel/MsgAcknowledgement](https://statesetjs.stateset.network/classes/MsgAcknowledgement)
+    - [ibc_channel/MsgChannelCloseConfirm](https://statesetjs.stateset.network/classes/MsgChannelCloseConfirm)
+    - [ibc_channel/MsgChannelCloseInit](https://statesetjs.stateset.network/classes/MsgChannelCloseInit)
+    - [ibc_channel/MsgChannelOpenAck](https://statesetjs.stateset.network/classes/MsgChannelOpenAck)
+    - [ibc_channel/MsgChannelOpenConfirm](https://statesetjs.stateset.network/classes/MsgChannelOpenConfirm)
+    - [ibc_channel/MsgChannelOpenInit](https://statesetjs.stateset.network/classes/MsgChannelOpenInit)
+    - [ibc_channel/MsgChannelOpenTry](https://statesetjs.stateset.network/classes/MsgChannelOpenTry)
+    - [ibc_channel/MsgRecvPacket](https://statesetjs.stateset.network/classes/MsgRecvPacket)
+    - [ibc_channel/MsgTimeout](https://statesetjs.stateset.network/classes/MsgTimeout)
+    - [ibc_channel/MsgTimeoutOnClose](https://statesetjs.stateset.network/classes/MsgTimeoutOnClose)
+    - [ibc_client/MsgCreateClient](https://statesetjs.stateset.network/classes/MsgCreateClient)
+    - [ibc_client/MsgSubmitMisbehaviour](https://statesetjs.stateset.network/classes/MsgSubmitMisbehaviour)
+    - [ibc_client/MsgUpdateClient](https://statesetjs.stateset.network/classes/MsgUpdateClient)
+    - [ibc_client/MsgUpgradeClient](https://statesetjs.stateset.network/classes/MsgUpgradeClient)
+    - [ibc_connection/MsgConnectionOpenAck](https://statesetjs.stateset.network/classes/MsgConnectionOpenAck)
+    - [ibc_connection/MsgConnectionOpenConfirm](https://statesetjs.stateset.network/classes/MsgConnectionOpenConfirm)
+    - [ibc_connection/MsgConnectionOpenInit](https://statesetjs.stateset.network/classes/MsgConnectionOpenInit)
+    - [ibc_connection/MsgConnectionOpenTry](https://statesetjs.stateset.network/classes/MsgConnectionOpenTry)
 
-Note that [ibc_transfer/MsgTransfer](https://statesetjs.scrt.network/classes/MsgTransfer) for sending funds across IBC **is** supported.
+Note that [ibc_transfer/MsgTransfer](https://statesetjs.stateset.network/classes/MsgTransfer) for sending funds across IBC **is** supported.
 
 <img src="./media/keplr-amino.png" width="65%" style="border-style: solid;border-color: #5e72e4;border-radius: 10px;" />
 
@@ -246,7 +246,7 @@ Currently this is equivalent to `keplr.getOfflineSigner()` but may change at the
 
 An offline wallet implementation, used to sign transactions. Usually we'd just want to pass it to `StatesetNetworkClient`.
 
-[**Full API »**](https://statesetjs.scrt.network/classes/Wallet.html)
+[**Full API »**](https://statesetjs.stateset.network/classes/Wallet.html)
 
 ### Importing account from mnemonic
 
@@ -271,7 +271,7 @@ const myMnemonicPhrase = wallet.mnemonic;
 
 ## StatesetNetworkClient
 
-[**Full API »**](https://statesetjs.scrt.network/classes/StatesetNetworkClient.html)
+[**Full API »**](https://statesetjs.stateset.network/classes/StatesetNetworkClient.html)
 
 ### Querier stateset.js
 
@@ -336,7 +336,7 @@ Tendermint provides a few predefined keys: `tx.hash` and `tx.height`. You can pr
 
 To create a query for txs where AddrA transferred funds: `transfer.sender = 'AddrA'`
 
-See `txsQuery` under https://statesetjs.scrt.network/modules#Querier.
+See `txsQuery` under https://statesetjs.stateset.network/modules#Querier.
 
 #### `statesetjs.query.auth.account()`
 
@@ -384,7 +384,7 @@ Balance queries the balance of a single coin for a single account.
 ```ts
 const { balance } = await statesetjs.query.bank.balance({
   address: myAddress,
-  denom: "uscrt",
+  denom: "ustate",
 });
 ```
 
@@ -851,15 +851,15 @@ const alsoMyAddress = statesetjs.address;
 
 ### `statesetjs.tx`
 
-On a signer stateset.js, `statesetjs.tx` is used to broadcast transactions. Every function under `statesetjs.tx` can receive an optional [TxOptions](https://statesetjs.scrt.network/modules#TxOptions).
+On a signer stateset.js, `statesetjs.tx` is used to broadcast transactions. Every function under `statesetjs.tx` can receive an optional [TxOptions](https://statesetjs.stateset.network/modules#TxOptions).
 
-[**Full API »**](https://statesetjs.scrt.network/modules#TxSender)
+[**Full API »**](https://statesetjs.stateset.network/modules#TxSender)
 
 #### `statesetjs.tx.broadcast()`
 
 Used to send a complex transactions, which contains a list of messages. The messages are executed in sequence, and the transaction succeeds if all messages succeed.
 
-For a list of all messages see: https://statesetjs.scrt.network/interfaces/Msg
+For a list of all messages see: https://statesetjs.stateset.network/interfaces/Msg
 
 ```ts
 const addMinterMsg = new MsgExecuteContract({
@@ -880,13 +880,13 @@ const mintMsg = new MsgExecuteContract({
       owner: MY_ADDRESS,
       public_metadata: {
         extension: {
-          image: "https://scrt.network/statesetnetwork-logo-secondary-black.png",
+          image: "https://stateset.network/statesetnetwork-logo-secondary-black.png",
           name: "statesetnetwork-logo-secondary-black",
         },
       },
       private_metadata: {
         extension: {
-          image: "https://scrt.network/statesetnetwork-logo-primary-white.png",
+          image: "https://stateset.network/statesetnetwork-logo-primary-white.png",
           name: "statesetnetwork-logo-primary-white",
         },
       },
@@ -915,13 +915,13 @@ Notes:
 const sendToAlice = new MsgSend({
   fromAddress: bob,
   toAddress: alice,
-  amount: [{ denom: "uscrt", amount: "1" }],
+  amount: [{ denom: "ustate", amount: "1" }],
 });
 
 const sendToEve = new MsgSend({
   fromAddress: bob,
   toAddress: eve,
-  amount: [{ denom: "uscrt", amount: "1" }],
+  amount: [{ denom: "ustate", amount: "1" }],
 });
 
 const sim = await statesetjs.tx.simulate([sendToAlice, sendToEve]);
@@ -936,7 +936,7 @@ const tx = await statesetjs.tx.broadcast([sendToAlice, sendToEve], {
 
 MsgExec attempts to execute the provided messages using authorizations granted to the grantee. Each message should have only one signer corresponding to the granter of the authorization.
 
-Input: [MsgExecParams](https://statesetjs.scrt.network/interfaces/MsgExecParams)
+Input: [MsgExecParams](https://statesetjs.stateset.network/interfaces/MsgExecParams)
 
 ##### `statesetjs.tx.authz.exec.simulate()`
 
@@ -946,7 +946,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgGrant is a request type for Grant method. It declares authorization to the grantee on behalf of the granter with the provided expiration time.
 
-Input: [MsgGrantParams](https://statesetjs.scrt.network/interfaces/MsgGrantParams)
+Input: [MsgGrantParams](https://statesetjs.stateset.network/interfaces/MsgGrantParams)
 
 ##### `statesetjs.tx.authz.grant.simulate()`
 
@@ -956,7 +956,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgRevoke revokes any authorization with the provided sdk.Msg type on the granter's account with that has been granted to the grantee.
 
-Input: [MsgRevokeParams](https://statesetjs.scrt.network/interfaces/MsgRevokeParams)
+Input: [MsgRevokeParams](https://statesetjs.stateset.network/interfaces/MsgRevokeParams)
 
 ##### `statesetjs.tx.authz.revoke.simulate()`
 
@@ -966,7 +966,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgMultiSend represents an arbitrary multi-in, multi-out send message.
 
-Input: [MsgMultiSendParams](https://statesetjs.scrt.network/interfaces/MsgMultiSendParams)
+Input: [MsgMultiSendParams](https://statesetjs.stateset.network/interfaces/MsgMultiSendParams)
 
 ```ts
 const tx = await statesetjs.tx.bank.multiSend(
@@ -974,17 +974,17 @@ const tx = await statesetjs.tx.bank.multiSend(
     inputs: [
       {
         address: myAddress,
-        coins: [{ denom: "uscrt", amount: "2" }],
+        coins: [{ denom: "ustate", amount: "2" }],
       },
     ],
     outputs: [
       {
         address: alice,
-        coins: [{ denom: "uscrt", amount: "1" }],
+        coins: [{ denom: "ustate", amount: "1" }],
       },
       {
         address: bob,
-        coins: [{ denom: "uscrt", amount: "1" }],
+        coins: [{ denom: "ustate", amount: "1" }],
       },
     ],
   },
@@ -1002,14 +1002,14 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgSend represents a message to send coins from one account to another.
 
-Input: [MsgSendParams](https://statesetjs.scrt.network/interfaces/MsgSendParams)
+Input: [MsgSendParams](https://statesetjs.state.network/interfaces/MsgSendParams)
 
 ```ts
 const tx = await statesetjs.tx.bank.send(
   {
     fromAddress: myAddress,
     toAddress: alice,
-    amount: [{ denom: "uscrt", amount: "1" }],
+    amount: [{ denom: "ustate", amount: "1" }],
   },
   {
     gasLimit: 20_000,
@@ -1025,7 +1025,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 Upload a compiled contract to Stateset Network
 
-Input: [MsgStoreCodeParams](https://statesetjs.scrt.network/interfaces/MsgStoreCodeParams)
+Input: [MsgStoreCodeParams](https://statesetjs.state.network/interfaces/MsgStoreCodeParams)
 
 ```ts
 const tx = await statesetjs.tx.compute.storeCode(
@@ -1056,7 +1056,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 Instantiate a contract from code id
 
-Input: [MsgInstantiateContractParams](https://statesetjs.scrt.network/interfaces/MsgInstanti
+Input: [MsgInstantiateContractParams](https://statesetjs.state.network/interfaces/MsgInstanti
 
 ateContractParams)
 
@@ -1080,7 +1080,7 @@ const tx = await statesetjs.tx.compute.instantiateContract(
         enable_mint: false,
         enable_burn: false,
       },
-      supported_denoms: ["uscrt"],
+      supported_denoms: ["ustate"],
     },
     label: "sSCRT",
     initFunds: [], // optional
@@ -1103,7 +1103,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 Execute a function on a contract
 
-Input: [MsgExecuteContractParams](https://statesetjs.scrt.network/interfaces/MsgExecuteContractParams)
+Input: [MsgExecuteContractParams](https://statesetjs.stateset.network/interfaces/MsgExecuteContractParams)
 
 ```ts
 const tx = await statesetjs.tx.compute.executeContract(
@@ -1133,7 +1133,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgVerifyInvariant represents a message to verify a particular invariance.
 
-Input: [MsgVerifyInvariantParams](https://statesetjs.scrt.network/interfaces/MsgVerifyInvariantParams)
+Input: [MsgVerifyInvariantParams](https://statesetjs.stateset.network/interfaces/MsgVerifyInvariantParams)
 
 ##### `statesetjs.tx.crisis.verifyInvariant.simulate()`
 
@@ -1143,13 +1143,13 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgFundCommunityPool allows an account to directly fund the community pool.
 
-Input: [MsgFundCommunityPoolParams](https://statesetjs.scrt.network/interfaces/MsgFundCommunityPoolParams)
+Input: [MsgFundCommunityPoolParams](https://statesetjs.stateset.network/interfaces/MsgFundCommunityPoolParams)
 
 ```ts
 const tx = await statesetjs.tx.distribution.fundCommunityPool(
   {
     depositor: myAddress,
-    amount: [{ amount: "1", denom: "uscrt" }],
+    amount: [{ amount: "1", denom: "ustate" }],
   },
   {
     gasLimit: 20_000,
@@ -1165,7 +1165,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgSetWithdrawAddress sets the withdraw address for a delegator (or validator self-delegation).
 
-Input: [MsgSetWithdrawAddressParams](https://statesetjs.scrt.network/interfaces/MsgSetWithdrawAddressParams)
+Input: [MsgSetWithdrawAddressParams](https://statesetjs.stateset.network/interfaces/MsgSetWithdrawAddressParams)
 
 ```ts
 const tx = await statesetjs.tx.distribution.setWithdrawAddress(
@@ -1187,7 +1187,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgWithdrawDelegatorReward represents delegation withdrawal to a delegator from a single validator.
 
-Input: [MsgWithdrawDelegatorRewardParams](https://statesetjs.scrt.network/interfaces/MsgWithdraw
+Input: [MsgWithdrawDelegatorRewardParams](https://statesetjs.stateset.network/interfaces/MsgWithdraw
 
 DelegatorRewardParams)
 
@@ -1211,7 +1211,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgWithdrawValidatorCommission withdraws the full commission to the validator address.
 
-Input: [MsgWithdrawValidatorCommissionParams](https://statesetjs.scrt.network/interfaces/MsgWithdraw
+Input: [MsgWithdrawValidatorCommissionParams](https://statesetjs.stateset.network/interfaces/MsgWithdraw
 
 ValidatorCommissionParams)
 
@@ -1253,7 +1253,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgSubmitEvidence represents a message that supports submitting arbitrary evidence of misbehavior such as equivocation or counterfactual signing.
 
-Input: [MsgSubmitEvidenceParams](https://statesetjs.scrt.network/interfaces/MsgSubmitEvidenceParams)
+Input: [MsgSubmitEvidenceParams](https://statesetjs.stateset.network/interfaces/MsgSubmitEvidenceParams)
 
 ##### `statesetjs.tx.evidence.submitEvidence.simulate()`
 
@@ -1263,7 +1263,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgGrantAllowance adds permission for Grantee to spend up to Allowance of fees from the account of Granter.
 
-Input: [MsgGrantAllowanceParams](https://statesetjs.scrt.network/interfaces/MsgGrantAllowanceParams)
+Input: [MsgGrantAllowanceParams](https://statesetjs.stateset.network/interfaces/MsgGrantAllowanceParams)
 
 ##### `statesetjs.tx.feegrant.grantAllowance.simulate()`
 
@@ -1273,7 +1273,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgRevokeAllowance removes any existing Allowance from Granter to Grantee.
 
-Input: [MsgRevokeAllowanceParams](https://statesetjs.scrt.network/interfaces/MsgRevokeAllowanceParams)
+Input: [MsgRevokeAllowanceParams](https://statesetjs.stateset.network/interfaces/MsgRevokeAllowanceParams)
 
 ##### `statesetjs.tx.feegrant.revokeAllowance.simulate()`
 
@@ -1283,14 +1283,14 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgDeposit defines a message to submit a deposit to an existing proposal.
 
-Input: [MsgDepositParams](https://statesetjs.scrt.network/interfaces/MsgDepositParams)
+Input: [MsgDepositParams](https://statesetjs.stateset.network/interfaces/MsgDepositParams)
 
 ```ts
 const tx = await statesetjs.tx.gov.deposit(
   {
     depositor: myAddress,
     proposalId: someProposalId,
-    amount: [{ amount: "1", denom: "uscrt" }],
+    amount: [{ amount: "1", denom: "ustate" }],
   },
   {
     gasLimit: 20_000,
@@ -1306,14 +1306,14 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgSubmitProposal defines an sdk.Msg type that supports submitting arbitrary proposal Content.
 
-Input: [MsgSubmitProposalParams](https://statesetjs.scrt.network/interfaces/MsgSubmitProposalParams)
+Input: [MsgSubmitProposalParams](https://statesetjs.stateset.network/interfaces/MsgSubmitProposalParams)
 
 ```ts
 const tx = await statesetjs.tx.gov.submitProposal(
   {
     type: ProposalType.TextProposal,
     proposer: myAddress,
-    initialDeposit: [{ amount: "10000000", denom: "uscrt" }],
+    initialDeposit: [{ amount: "10000000", denom: "ustate" }],
     content: {
       title: "Hi",
       description: "Let's vote on this",
@@ -1339,7 +1339,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgVote defines a message to cast a vote.
 
-Input: [MsgVoteParams](https://statesetjs.scrt.network/interfaces/MsgVoteParams)
+Input: [MsgVoteParams](https://statesetjs.stateset.network/interfaces/MsgVoteParams)
 
 ```ts
 const tx = await statesetjs.tx.gov.vote(
@@ -1362,7 +1362,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgVoteWeighted defines a message to cast a vote, with an option to split the vote.
 
-Input: [MsgVoteWeightedParams](https://statesetjs.scrt.network/interfaces/MsgVoteWeightedParams)
+Input: [MsgVoteWeightedParams](https://statesetjs.stateset.network/interfaces/MsgVoteWeightedParams)
 
 ```ts
 // vote yes with 70% of my power
@@ -1390,7 +1390,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgTransfer defines a msg to transfer fungible tokens (i.e Coins) between ICS20 enabled chains. See ICS Spec here: https://github.com/cosmos/ics/tree/master/spec/ics-020-fungible-token-transfer#data-structures
 
-Input: [MsgTransferParams](https://statesetjs.scrt.network/interfaces/MsgTransferParams)
+Input: [MsgTransferParams](https://statesetjs.stateset.network/interfaces/MsgTransferParams)
 
 ##### `statesetjs.tx.ibc.transfer.simulate()`
 
@@ -1400,7 +1400,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgUnjail defines a message to release a validator from jail.
 
-Input: [MsgUnjailParams](https://statesetjs.scrt.network/interfaces/MsgUnjailParams)
+Input: [MsgUnjailParams](https://statesetjs.stateset.network/interfaces/MsgUnjailParams)
 
 ```ts
 const tx = await statesetjs.tx.slashing.unjail(
@@ -1421,7 +1421,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgBeginRedelegate defines an SDK message for performing a redelegation of coins from a delegator and source validator to a destination validator.
 
-Input: [MsgBeginRedelegateParams](https://statesetjs.scrt.network/interfaces/MsgBeginRedelegateParams)
+Input: [MsgBeginRedelegateParams](https://statesetjs.state.network/interfaces/MsgBeginRedelegateParams)
 
 ```ts
 const tx = await statesetjs.tx.staking.beginRedelegate(
@@ -1429,7 +1429,7 @@ const tx = await statesetjs.tx.staking.beginRedelegate(
     delegatorAddress: myAddress,
     validatorSrcAddress: someValidator,
     validatorDstAddress: someOtherValidator,
-    amount: { amount: "1", denom: "uscrt" },
+    amount: { amount: "1", denom: "ustate" },
   },
   {
     gasLimit: 50_000,
@@ -1445,7 +1445,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgCreateValidator defines an SDK message for creating a new validator.
 
-Input: [MsgCreateValidatorParams](https://statesetjs.scrt.network/interfaces/MsgCreateValidatorParams)
+Input: [MsgCreateValidatorParams](https://statesetjs.stateset.network/interfaces/MsgCreateValidatorParams)
 
 ```ts
 const tx = await statesetjs.tx.staking.createValidator(
@@ -1464,8 +1464,8 @@ const tx = await statesetjs.tx.staking.createValidator(
       details: "We are good",
     },
     pubkey: toBase64(new Uint8Array(32).fill(1)), // validator's pubkey, to sign on validated blocks
-    minSelfDelegation: "1", // uscrt
-    initialDelegation: { amount: "1", denom: "uscrt" },
+    minSelfDelegation: "1", // ustate
+    initialDelegation: { amount: "1", denom: "ustate" },
   },
   {
     gasLimit: 100_000,
@@ -1481,14 +1481,14 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgDelegate defines an SDK message for performing a delegation of coins from a delegator to a validator.
 
-Input: [MsgDelegateParams](https://statesetjs.scrt.network/interfaces/MsgDelegateParams)
+Input: [MsgDelegateParams](https://statesetjs.stateset.network/interfaces/MsgDelegateParams)
 
 ```ts
 const tx = await statesetjs.tx.staking.delegate(
   {
     delegatorAddress: myAddress,
     validatorAddress: someValidatorAddress,
-    amount: { amount: "1", denom: "uscrt" },
+    amount: { amount: "1", denom: "ustate" },
   },
   {
     gasLimit: 50_000,
@@ -1504,7 +1504,7 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgEditValidator defines an SDK message for editing an existing validator.
 
-Input: [MsgEditValidatorParams](https://statesetjs.scrt.network/interfaces/MsgEditValidatorParams)
+Input: [MsgEditValidatorParams](https://statesetjs.stateset.network/interfaces/MsgEditValidatorParams)
 
 ```ts
 const tx = await statesetjs.tx.staking.editValidator(
@@ -1535,14 +1535,14 @@ Simulates execution without sending a transactions. Input is exactly like the pa
 
 MsgUndelegate defines an SDK message for performing an undelegation from a delegate and a validator
 
-Input: [MsgUndelegateParams](https://statesetjs.scrt.network/interfaces/MsgUndelegateParams)
+Input: [MsgUndelegateParams](https://statesetjs.stateset.network/interfaces/MsgUndelegateParams)
 
 ```ts
 const tx = await statesetjs.tx.staking.undelegate(
   {
     delegatorAddress: myAddress,
     validatorAddress: someValidatorAddress,
-    amount: { amount: "1", denom: "uscrt" },
+    amount: { amount: "1", denom: "ustate" },
   },
   {
     gasLimit: 50_000,
